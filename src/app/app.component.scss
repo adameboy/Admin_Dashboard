@@ -1,0 +1,72 @@
+:host {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 72px 1fr;
+    grid-template-areas:
+        "header header"
+        "sidebar content";
+}
+
+.header {
+    background-color: #fff;
+    grid-area: header;
+}
+.sidebar {
+    background-color: #1c1f23;
+    grid-area: sidebar;
+}
+
+.content {
+    background-color: #c3c5ca;
+    padding: 25px;
+    grid-area: content;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas:
+        "c1 c2 c3"
+        "c4 c4 c5"
+        "c4 c4 c6";
+    gap: 20px;
+    overflow: auto; /* Use "scroll" if you want to always show the scrollbar */
+    max-height: 1fr;
+}
+
+.card {
+    background-color: #f6f7f9;
+    border-radius: 10px;
+}
+// Define the total number of .card elements
+$card-count: 6;
+
+// Loop through each .card element and set the grid-area style
+@for $i from 1 through $card-count {
+    .card:nth-child(#{$i}) {
+        grid-area: c#{$i};
+    }
+}
+
+
+@media (max-width: 992px) {
+    .content {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, 200px);
+        grid-template-areas: initial;
+    }
+    .card {
+        grid-area: initial !important;
+    }
+}
+
+@media (max-width: 768px) {
+    :host {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "header header"
+            "content content";
+    }
+    .sidebar {
+        display: none;
+    }
+}
