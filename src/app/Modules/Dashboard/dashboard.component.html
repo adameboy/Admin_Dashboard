@@ -1,4 +1,4 @@
-<!-- <div *ngIf="$isAuth | async" class="layout">
+<div class="layout">
   <app-header class="header"></app-header>
   <app-sidebar
     class="sidebar flex flex-col justify-start gap-5 p-5"
@@ -8,9 +8,3 @@
     <router-outlet></router-outlet>
   </main>
 </div>
-
-<ng-container *ngIf="!($isAuth | async)">
-  <router-outlet class="auth-layout"></router-outlet>
-</ng-container> -->
-
-<router-outlet></router-outlet>

@@ -25,6 +25,6 @@ export class LoginComponent {
 
   onSubmit() {
     this.auth.emitBooleanValue(true);
-    this.router.navigate(["/dashboard"]);
+    this.router.navigate(["/"]);
   }
 }
