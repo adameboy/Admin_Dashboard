@@ -1,28 +1,48 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, BehaviorSubject, of } from 'rxjs';
+import { Observable, BehaviorSubject, of, map } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { IAuth } from '../Interfaces/Responses/IAuth';
+import { LoginCommand } from '../Interfaces/Commands/LoginCommand';
+import { BaseApiResponse } from 'src/app/Core/Interfaces/Responses/BaseApiResponse';
+import { Store } from '@ngrx/store';
+import { selectAppAuth } from '../state/app/app.reducer';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private booleanSubject: BehaviorSubject<boolean>;
-  isAuth$: Observable<boolean>;
-
-  constructor(private router: Router) {
-    this.booleanSubject = new BehaviorSubject(false);
-    this.isAuth$ = this.booleanSubject.asObservable();
+  isAuth$: Observable<IAuth | null> = this.store.select(selectAppAuth);
+  constructor(
+    private httpClient: HttpClient,
+    private store: Store,
+    private router: Router) {
   }
 
 
-
-  logout() {
-    // localStorage.removeItem(this.authLocalStorageToken);
-    this.router.navigate(['/auth'], {
+  login(command: LoginCommand) {
+    return this.httpClient.post<BaseApiResponse<IAuth>>(`${environment.apiUrl}/security/Account/LoginWeb`, command);
+  }
+  getAuth() {
+    const authStr = localStorage.getItem("auth");
+    if (authStr) {
+      const auth: IAuth = JSON.parse(authStr)
+      return auth;
+    };
+    return null;
+  }
+  saveAuth(auth: IAuth | null) {
+    if (auth)
+      localStorage.setItem("auth", JSON.stringify(auth));
+    this.router.navigate(['/'], {
       queryParams: {},
     });
   }
-  emitBooleanValue(value: boolean) {
-    this.booleanSubject.next(value);
+  logout() {
+    localStorage.removeItem("auth");
+    this.router.navigate(['/auth'], {
+      queryParams: {},
+    });
   }
 }

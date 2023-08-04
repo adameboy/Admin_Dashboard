@@ -3,7 +3,7 @@ import { CanActivateFn, ActivatedRouteSnapshot, RouterStateSnapshot, Router, Can
 import { map } from "rxjs";
 import { AuthService } from "../Core/Services/auth.service";
 
-export const authGuard: CanActivateFn = (
+export const loginGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
@@ -12,11 +12,11 @@ export const authGuard: CanActivateFn = (
   // If not authenticated, redirect to the login page with the attempted URL as a query parameter
   return authService.isAuth$.pipe(
     map(value => {
-      if (!value)
-        authService.logout();
-      return value != null;
+      if (value)
+        authService.saveAuth(null);
+      return !value;
     })
   )
 };
 
-export const canActivateChild: CanActivateChildFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => authGuard(route, state);
+export const canActivateChild: CanActivateChildFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => loginGuard(route, state);

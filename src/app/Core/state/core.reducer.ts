@@ -1,6 +1,6 @@
 import { ActionReducer, ActionReducerMap, INIT, MetaReducer } from "@ngrx/store";
 import { State } from "./core.state";
-import * as AppReducer from "./app/app.reducer";
+import * as AppReducer from "src/app/Core/state/app/app.reducer";
 // import * as AuthReducer from "./auth/auth.reducer";
 // import * as UsersReducer from "./users/users.reducer"
 // import * as DashboardReducer from "./dashboard/dashboard.reducer"

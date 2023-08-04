@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/Core/Services/auth.service';
+import { logoutAction } from 'src/app/Core/state/app/app.actions';
 
 @Component({
   selector: 'app-header',
@@ -64,10 +66,10 @@ export class HeaderComponent {
 
   constructor(
     private router: Router,
+    private store: Store,
     private auth: AuthService) {
- }
+  }
   logOut() {
-    this.auth.emitBooleanValue(false);
-    this.router.navigate(["/auth"])
-   }
+    this.store.dispatch(logoutAction());
+  }
 }

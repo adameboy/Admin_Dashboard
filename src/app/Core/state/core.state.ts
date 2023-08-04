@@ -1,4 +1,4 @@
-import { AppState } from "./app/app.state";
+import { AppState } from "src/app/Core/state/app/app.state";
 
 export interface State {
     app: AppState,
