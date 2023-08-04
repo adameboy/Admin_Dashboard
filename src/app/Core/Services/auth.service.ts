@@ -10,7 +10,7 @@ export class AuthService {
   isAuth$: Observable<boolean>;
 
   constructor(private router: Router) {
-    this.booleanSubject = new BehaviorSubject(true);
+    this.booleanSubject = new BehaviorSubject(false);
     this.isAuth$ = this.booleanSubject.asObservable();
   }
 

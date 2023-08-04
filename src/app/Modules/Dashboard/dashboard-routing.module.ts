@@ -9,8 +9,8 @@ const routes: Routes = [
     path: '',
     component: DashboardComponent,
     children: [
-      { path: 'home', component: HomeComponent },
-      { path: 'users', component: UsersComponent },
+      { path: 'home', component: HomeComponent ,data:{ animation: 'isRight'}},
+      { path: 'users', component: UsersComponent,data:{ animation: 'isLeft'}},
       {
         path: '',
         redirectTo: 'home',

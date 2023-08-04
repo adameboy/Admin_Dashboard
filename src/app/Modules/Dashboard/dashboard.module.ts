@@ -8,7 +8,6 @@ import { DashboardComponent } from './dashboard.component';
 import { SidebarComponent } from 'src/app/Components/sidebar/sidebar.component';
 import { HeaderComponent } from 'src/app/Components/header/header.component';
 
-
 @NgModule({
   declarations: [HomeComponent, UsersComponent, DashboardComponent, SidebarComponent, HeaderComponent],
   imports: [
