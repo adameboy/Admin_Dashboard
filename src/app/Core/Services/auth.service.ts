@@ -22,6 +22,29 @@ export class AuthService {
 
 
   login(command: LoginCommand) {
+    const fakeResponse: BaseApiResponse<IAuth> = {
+      code: "0000",
+      data: {
+        expDate: '',
+        isAuthenticated: true,
+        jwt: 'JWTTOKEN',
+        refreshToken: '',
+        user: {
+          comision: 0,
+          email: '',
+          idCentroCostos: 0,
+          idCentroCostosPadre: 0,
+          idEmpresa: 0,
+          nombre: '',
+          permisos: '',
+          role: '',
+          saldo: 0,
+          userId: ''
+        }
+      },
+      message: ''
+    }
+    return of(fakeResponse);
     return this.httpClient.post<BaseApiResponse<IAuth>>(`${environment.apiUrl}/security/Account/LoginWeb`, command);
   }
   getAuth() {
